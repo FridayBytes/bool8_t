@@ -3,7 +3,7 @@ set(include_dir "${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}")
 
 # set the project config file paths
 set(config_file_input "${include_dir}/Config.hpp.in")
-set(config_file_output "${PROJECT_BINARY_DIR}/include/${PROJECT_NAME}/Config.hpp")
+set(config_file_output "${include_dir}/Config.hpp")
 
 # make the project config file
 configure_file("${config_file_input}"

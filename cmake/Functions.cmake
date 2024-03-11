@@ -106,8 +106,7 @@ function(add_project_library target)
     # include the library build directories
     target_include_directories(${target}
                                PUBLIC
-                               "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>"
-                               "$<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>")
+                               "$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>")
 
     # set an install path
     if(${PROJECT_NAME}_FRAMEWORK)
