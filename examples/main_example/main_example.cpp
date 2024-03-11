@@ -14,18 +14,28 @@ int main()
 	bool8.flag0 = true;
 	bool8.flag3 = true;
 
-	// write the all flags using overloaded operator []
-	std::cout << "bool8_t flags:\n";
+	// print the all flags using overloaded operator []
+	std::cout << "1 test.\n";
 	for (int i = 0; i < bool8.flagCount(); ++i)
-		std::cout << i << ") " << bool8[i] << '\n';
+		std::cout << i << ") " << std::boolalpha << bool8[i] << '\n';
 
 	// set value for the all flags
 	bool8 = false;
 	if (!bool8)
-		std::cout << "All flags of the bool8 is false\n";
+		std::cout << "2 test.\nAll flags of the bool8 is false\n";
 
 	// inverse flags
 	bool8.inverse();
 	if (bool8)
-		std::cout << "All flags of the bool8 is true";
+		std::cout << "3 test.\nAll flags of the bool8 is true\n";
+
+	// rewrite and print the all flags using overloaded operator []
+	std::cout << "4 test.\n";
+	for (int i = 0; i < bool8.flagCount(); ++i)
+	{
+		if(i % 2)
+			bool8[i] = false;
+
+		std::cout << i << ") " << std::boolalpha << bool8[i] << '\n';
+	}
 }

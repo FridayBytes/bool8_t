@@ -45,6 +45,53 @@ class bool8_t_API bool8_t
 public:
 
 	////////////////////////////////////////////////////////////
+	/// \brief Utility class for accessing boolean flags using indexing operator
+	///
+	////////////////////////////////////////////////////////////
+    class bool8_t_API adapter
+	{
+	public:
+
+		////////////////////////////////////////////////////////////
+		/// \brief Main constructor
+		///
+		/// This constructor creates a boolian flag adaptor
+		/// 
+		/// \param index    Index of the flag
+		/// \param instance Pointer to the bool8_t class
+		///
+		////////////////////////////////////////////////////////////
+		adapter(uint8_t index, bool8_t* instance);
+
+		////////////////////////////////////////////////////////////
+		/// \brief Overload of assignment operator
+		/// 
+		/// \param right Boolean value assign to the flag
+		/// 
+		/// \return Reference to self
+		///
+		////////////////////////////////////////////////////////////
+		adapter& operator =(bool right);
+
+		////////////////////////////////////////////////////////////
+		/// \brief Implicit conversion operator to bool
+		///
+		/// \return Flag converted to the boolean value
+		///
+		////////////////////////////////////////////////////////////
+		operator bool() const;
+
+	private:
+
+		////////////////////////////////////////////////////////////
+		// Member data
+		////////////////////////////////////////////////////////////
+		bool8_t* m_instance; ///< Pointer to the bool8_t class
+		uint8_t m_index;     ///< Index of the boolean flag
+	};
+
+
+	////////////////////////////////////////////////////////////
 	/// \brief Main constructor
 	///
 	/// This constructor creates an instance contained 8 boolean flags.
@@ -70,14 +117,25 @@ public:
 	/// \brief Overload of indexing operator to access a boolean flag by its position
 	///
 	/// This function provides read-only access.
-	/// Note: the behavior is undefined if \a index is out of range.
 	///
 	/// \param index Index of the flag to get
 	///
 	/// \return Flag at the position \a index
 	///
 	////////////////////////////////////////////////////////////
-	bool operator [](uint8_t index) const;
+    bool8_t::adapter operator [](uint8_t index) const;
+
+	////////////////////////////////////////////////////////////
+	/// \brief Overload of indexing operator to access a boolean flag by its position
+	///
+	/// This function provides read-write access.
+	///
+	/// \param index Index of the flag to get
+	///
+	/// \return Flag at the position \a index
+	///
+	////////////////////////////////////////////////////////////
+	bool8_t::adapter operator [](uint8_t index);
 
 	////////////////////////////////////////////////////////////
 	/// \brief Implicit conversion operator to bool

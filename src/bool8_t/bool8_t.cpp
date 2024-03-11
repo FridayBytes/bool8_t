@@ -27,10 +27,76 @@
 #include "bool8_t/bool8_t.hpp"
 
 
+bool8_t::adapter::adapter(uint8_t index, bool8_t* instance) :
+	m_index(index),
+	m_instance(instance)
+{
+}
+
+bool8_t::adapter& bool8_t::adapter::operator=(bool right)
+{
+	uint8_t flag = static_cast<uint8_t>(right);
+
+	switch (m_index)
+	{
+	case 0:
+		m_instance->flag0 = flag;
+		break;
+	case 1:
+		m_instance->flag1 = flag;
+		break;
+	case 2:
+		m_instance->flag2 = flag;
+		break;
+	case 3:
+		m_instance->flag3 = flag;
+		break;
+	case 4:
+		m_instance->flag4 = flag;
+		break;
+	case 5:
+		m_instance->flag5 = flag;
+		break;
+	case 6:
+		m_instance->flag6 = flag;
+		break;
+	case 7:
+		m_instance->flag7 = flag;
+		break;
+	}
+
+	return *this;
+}
+
+bool8_t::adapter::operator bool() const
+{
+	switch (m_index)
+	{
+	case 0:
+		return static_cast<bool>(m_instance->flag0);
+	case 1:
+		return static_cast<bool>(m_instance->flag1);
+	case 2:
+		return static_cast<bool>(m_instance->flag2);
+	case 3:
+		return static_cast<bool>(m_instance->flag3);
+	case 4:
+		return static_cast<bool>(m_instance->flag4);
+	case 5:
+		return  static_cast<bool>(m_instance->flag5);
+	case 6:
+		return static_cast<bool>(m_instance->flag6);
+	case 7:
+		return static_cast<bool>(m_instance->flag7);
+	default:
+		return false;
+	}
+}
+
 ////////////////////////////////////////////////////////////
 bool8_t::bool8_t(bool val) 
 {
-	flag0 = flag1 = flag2 = flag3 = flag4 = flag5 = flag6 = flag7 = val ? 1 : 0;
+	flag0 = flag1 = flag2 = flag3 = flag4 = flag5 = flag6 = flag7 = static_cast<uint8_t>(val);
 }
 
 
@@ -51,29 +117,16 @@ bool8_t &bool8_t::operator =(const bool8_t& right)
 
 
 ////////////////////////////////////////////////////////////
-bool bool8_t::operator [](uint8_t index) const
+bool8_t::adapter bool8_t::operator [](uint8_t index) const
 {
-	switch (index)
-	{
-	case 0:
-		return flag0;
-	case 1:
-		return flag1;
-	case 2:
-		return flag2;
-	case 3:
-		return flag3;
-	case 4:
-		return flag4;
-	case 5:
-		return flag5;
-	case 6:
-		return flag6;
-	case 7:
-		return flag7;
-	default:
-		return false;
-	}
+	return bool8_t::adapter(index, const_cast<bool8_t*>(this));
+}
+
+
+////////////////////////////////////////////////////////////
+bool8_t::adapter bool8_t::operator [](uint8_t index)
+{
+	return bool8_t::adapter(index, this);
 }
 
 
